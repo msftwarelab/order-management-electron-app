@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Product Entry Page</title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+    <style type="text/css">
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #myInput {
+            background-image: url('../assets/icons/win/searchicon.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 50%;
+            font-size: 16px;
+            padding: 6px 20px 6px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable th,
+        #myTable td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body onload="loadMyValues()">
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="col s9">
+                    <h4 style="text-align: center;">Product Entry Page</h4>
+                </div>
+                <div class="col s3">
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input id="designName" type="text" placeholder="Design Name:">
+                </div>
+                <div class="input-field col s3">
+                    <input id="design_no" type="text" placeholder="Design No.">
+                </div>
+                <div class="input-field col s2">
+                    <input id="shade" type="text" placeholder="Shade:">
+                </div>
+                <div class="input-field col s1">
+                    <input id="pcs" type="number" placeholder="Pcs:">
+                </div>
+                <div class="input-field col s2">
+                    <input id="quantity" type="number" placeholder="Quantity:">
+                </div>
+                <div class="input-field col s1">
+                    <input type="button" onclick="addValuesToDatabase()" class="btn" value="Add" />
+                </div>
+            </div>
+        </form>
+        <div id="stockTable">
+            <table id="myTable">
+                <thead>
+                    <tr class="centered">
+                        <th style="text-align: center">Design Name</th>
+                        <th style="text-align: center">Design No.</th>
+                        <th style="text-align: center">Shade No.</th>
+                        <th style="text-align: center">Pcs</th>
+                        <th style="text-align: center">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody">
+                </tbody>
+                <tfoot>
+                    <tr class="centered">
+                        <th style="text-align: center">Design Name</th>
+                        <th style="text-align: center">Design No.</th>
+                        <th style="text-align: center">Shade No.</th>
+                        <th style="text-align: center">Pcs</th>
+                        <th style="text-align: center">Quantity</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <script src="../javaScriptFiles/openingStockEntry.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+    <script>
+    </script>
+</body>
+
+</html>

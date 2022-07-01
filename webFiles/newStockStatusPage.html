@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>New Stock Status</title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+</head>
+
+<body onload="fetchValuesForTable()">
+    <h4>New Stock Status</h4>
+    <div class="row">
+        <form class="col s12">
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th>Production Series</th>
+                        <th>Design Name</th>
+                        <th>Design No</th>
+                        <th>Shade No.</th>
+                        <th>Quantity</th>
+                        <th>Date of Production</th>
+                        <th>Current status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="productionTableBody">
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <script src="../javaScriptFiles/newStockStatus.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+</body>
+
+</html>

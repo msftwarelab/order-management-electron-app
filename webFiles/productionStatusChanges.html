@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title> Production Status Update Page </title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+</head>
+
+<body onload="loadPageBody()">
+    <h4>New Order Form</h4>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    Production No.
+                    <input id="stockAdditionSeries" type="text" readonly>
+                </div>
+                <div class="input-field col s4">
+                    Production Dt.
+                    <input id="dateOfMfg" type="text" readonly>
+                </div>
+                <div class="input-field col s4">
+                    Current Status:
+                    <input id="currentStatus" type="text" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    Design Name
+                    <input id="designName" type="text" readonly>
+                </div>
+                <div class="input-field col s3">
+                    Design No
+                    <input id="designNo" type="text" readonly>
+                </div>
+                <div class="input-field col s3">
+                    Shade No
+                    <input id="shadeNo" type="text" readonly>
+                </div>
+                <div class="input-field col s3">
+                    Qty
+                    <input id="qty" type="text" readonly>
+                </div>
+            </div>
+
+            <table align='center' cellspacing=2 cellpadding=5 id="data_table" border=1>
+                <thead>
+                    <tr>
+                        <th>Qty</th>
+                        <th>Current Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td>
+                            <input type="number" id="qty_n" name="qty_n" onchange="checkQuantity()"> </td>
+                        <td>
+                            <select class="browser-default" id="productionStatus_n" onchange="setGlobalParam(this.id, this.value)">
+                                <option value="" disabled selected>Production Status</option>
+                                <option value="1">GREY</option>
+                                <option value="2">IN DYEING</option>
+                                <option value="3">FINISHED</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="date" id="statusChangeDate_n" placeholder="Production Date">
+                        </td>
+                        <td>
+                            <input type="button" class="add" onclick="add_row();" value="Add Row">
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight: bold">
+                        <td></td>
+                        <td id="remaining_meters_text"></td>
+                        <td id="remaining_meters"></td>
+                        <td>
+                            <input type="button" class="save" onclick="submitForm();" value="Save">
+                            <input type="button" class="cancel" onclick="remote.getCurrentWindow().close();" value="Cancel">
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <script>
+
+    </script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/materialize.min.js"></script>
+    <script src="../javaScriptFiles/productionStatusChange.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title> Order details page </title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+</head>
+
+<body onload="loadPageBody()">
+    <h4>Order details page</h4>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s3">
+                    Invoice No.
+                    <input id="orderNo" type="text" readonly>
+                </div>
+                <div class="input-field col s3">
+                    Party Name
+                    <input id="partyName" type="text" readonly>
+                </div>
+                <div class="input-field col s2">
+                    Order Date
+                    <input id="orderDate" type="text" readonly>
+                </div>
+                <div class="input-field col s2">
+                    Total Order Qty
+                    <input id="totalQty" type="text" readonly>
+                </div>
+                <div class="input-field col s2">
+                    Dispatch Date:
+                    <input id="dispatchDate" type="date" placeholder="Dispatch Date">
+                </div>
+            </div>
+            <table align='center' cellspacing=2 cellpadding=5 id="data_table" border=1>
+                <thead>
+                    <tr>
+                        <th>Design Name</th>
+                        <th>Design No</th>
+                        <th>Shade No</th>
+                        <th>Order qty</th>
+                        <th>Dispatch Qty</th>
+                        <th>Finish Stock Available</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td>
+                            <input type="text" id="designName" name="designName" readonly> </td>
+                        <td>
+                            <input type="text" id="designNo" name="designNo" readonly> </td>
+                        <td>
+                            <input type="text" id="shadeNo" name="shadeNo" readonly> </td>
+                        <td>
+                            <input type="text" id="orderQty" name="orderQty" readonly> </td>
+                        <td>
+                            <input type="number" id="actualDispatch" name="actualDispatch" onchange="return findTotalMeters()"> </td>
+                        <td>
+                            <label id="finishStockAvaibility" style="font-size: 15px; color: black;">NIL</label>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight: bold">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Order Qty:
+                            <label id="orderQtyRow" style="font-size: 15px; color: black;"> 0</label>
+                        </td>
+                        <td>
+                            Dispatch Qty:
+                            <label id="dispatchQtyRow" style="font-size: 15px; color: black;"> 0</label>
+                        </td>
+                        <td>
+                            <input type="button" class="save" onclick="submitForm();" value="Dispatch">
+                            <input type="button" class="cancel" onclick="remote.getCurrentWindow().close();" value="Cancel">
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <script>
+
+    </script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/materialize.min.js"></script>
+    <script src="../javaScriptFiles/pendingOrderDispatchForm.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+</body>
+
+</html>

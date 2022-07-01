@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title> New Order Form </title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+</head>
+
+<body onload="fetchInvoiceNumberSeries()">
+    <h4 style="text-align: center">New Order Form</h4>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    <input id="partyName" type="text" placeholder="Party Name" autofocus>
+                </div>
+                <div class="input-field col s4">
+                    <input id="orderDate" type="date" placeholder="Order Date">
+                </div>
+                <div class="input-field col s4">
+                    <input id="invoiceNo" type="text" placeholder="Invoice No." readonly>
+                </div>
+            </div>
+
+            <table align='center' cellspacing=2 cellpadding=5 id="data_table" border=1>
+                <thead>
+                    <tr>
+                        <th>Design Name</th>
+                        <th>Design No.</th>
+                        <th>Shade No.</th>
+                        <th>Quantity</th>
+                        <th>Finish/ Grey/ In Dyeing Stock</th>
+                        <th>Locked Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td>
+                            <input type="text" id="design_name" name="design_name" onkeypress="return checkTabEnterPress(this,event)">                            </td>
+                        <td>
+                            <select class="browser-default" id="design_no" onchange="loadShadeNo(this.id, this.value)">
+                                <option value="" disabled selected>Shade No.</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="browser-default" id="shade_no" onchange="loadAvailableQuantity(this.id,this.value)">
+                                <option value="" disabled selected>Shade No.</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <input type="number" id="qty" name="qty" onChange="findTotalMeters();">
+                        </td>
+                        <td>
+                            <label id="availableInStock" style="font-size: 15px;">NIL</label>
+                        </td>
+                        <td>
+                            <label id="lockedQty" style="font-size: 15px;color: black;">NIL</label>
+                        </td>
+                        <td>
+                            <input type="button" class="add" onclick="add_row();" value="Add Row">
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight: bold">
+                        <td></td>
+                        <td></td>
+                        <td>Total Order Qty:</td>
+                        <td id="totalMeters">XXXX</td>
+                        <td>
+                            <input type="button" class="save" onclick="submitForm();" value="Save">
+                            <input type="button" class="cancel" onclick="remote.getCurrentWindow().close();" value="Cancel">
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <script>
+        Date.prototype.toDateInputValue = (function () {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0, 10);
+        });
+        document.getElementById('orderDate').value = new Date().toDateInputValue();
+
+    </script>
+    <script>
+        var totalMeters = 0;
+        document.getElementById("totalMeters").innerHTML = "0";
+        var designNoLongArray = [];
+        var uniqueDesignNoArray = [];
+        uniqueDesignNoArray.push('Design No.');
+        var uniqueShadeNoArray = [];
+        uniqueShadeNoArray.push('Shade No.');
+        var selectedDesignName = null;
+        var selectedDesingNo = null;
+        var selectedShadeNo = null;
+        var enteredQuantity = null;
+
+        function fetchInvoiceNumberSeries() {
+            connection.query("SELECT seriesValue from seriesnumber WHERE seriesName = 'orderBook' ", function (error, results, fields) {
+                if (error) throw error;
+                document.getElementById("invoiceNo").value = results[0].seriesValue;
+            });
+            searchBox();
+        }
+
+        function checkTabEnterPress(currentContext, e) {
+            if (e.keyCode == 13) {
+                selectedDesignName = e.path[0].value;
+                connection.query("SELECT designNo, shadeNo, qty from openingstock WHERE designName ='" + selectedDesignName + "' ORDER BY designNo, shadeNo ASC;", function (error, results, fields) {
+                    if (error) throw error;
+                    if (results.length == 0) {
+                        e.path[0].style.borderColor = "red";
+                        return;
+                    }
+                    else e.path[0].style.borderColor = "grey";
+
+                    dbValues = results;
+                    loadValuesInDesignNo(currentContext.name, results);
+                });
+            }
+        }
+    </script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/materialize.min.js"></script>
+    <script src="../javaScriptFiles/newOrderForm.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+</body>
+
+</html>

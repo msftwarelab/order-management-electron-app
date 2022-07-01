@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Add New Item To Stock</title>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+</head>
+
+<body onload="fetchStockAdditionSeries()">
+    <h4 align="center">Add New Item To Stock</h4>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    <input id="stockAdditionSeries" type="text" placeholder="Stock Addition No." readonly>
+                </div>
+                <div class="input-field col s4">
+                    <input id="dateOfProduction" type="date" autofocus>
+                    <label for="dateOfProduction">Date:</label>
+                </div>
+                <div class="input-field col s4">
+                    <select class="browser-default" id="productionStatus">
+                        <option value="" disabled selected>Production Status</option>
+                        <option value="1">Grey</option>
+                        <option value="2">In Dyeing</option>
+                        <option value="3">Finished</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="designName" type="text">
+                    <label for="designName">Design Name:</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="design_no" type="text">
+                    <label for="design_no">Design No.:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="shade" type="text">
+                    <label for="shade">Shade:</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="qty" type="text">
+                    <label for="qty">Quantity:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <input type="button" id="submit" value="Submit" onclick="submitData()">
+                    <input type="button" id="cancel" value="Cancel" onclick="remote.getCurrentWindow().close();">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="../javaScriptFiles/addNewItemToStock.js"></script>
+    <script src="../javaScriptFiles/databaseConnectivity.js"></script>
+    <script>
+        function fetchStockAdditionSeries() {
+            connection.query("SELECT seriesValue from seriesnumber WHERE seriesName = 'stockAddition' ", function (error, results, fields) {
+                if (error) throw error;
+                document.getElementById("stockAdditionSeries").value = results[0].seriesValue;
+            });
+        }
+    </script>
+</body>
+
+</html>
